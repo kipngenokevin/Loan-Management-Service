@@ -1,0 +1,15 @@
+{
+  "name": "loan-management-service",
+  "version": "1.0.0",
+  "description": "The platform is supposed to extend micro loan products to the Bank customers. Bank customers access bank services through a multi channel Mobile Application (USSD, iOS and Android). The Lending Platform has to be able to extend APIs to the Mobile Application, query the Scoring Engine, and consume data from the CORE Banking System.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Kipngeno Kevin",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}
