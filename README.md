@@ -36,3 +36,51 @@ DB_PASSWORD=your_database_password
 DB_HOST=localhost
 DB_PORT=5432
 ```
+
+## Models for Loan Application System
+
+The system consists of two models:
+- **Customer**: Represents a customer in the system, with a unique `customerNumber` provided by the bank.
+- **Loan**: Represents loan records associated with a customer.
+
+### 2. Models
+
+#### 2.1. Customer Model
+
+**Model Name**: `Customer`
+
+**Table**: `customer_records`
+
+**Fields and Data Types**:
+- `id`: Integer (Primary Key, Auto-incremented)
+- `customerNumber`: String (Unique)
+
+#### 2.2. Loan Model
+
+**Model Name**: `Loan`
+
+**Table**: `loan_records`
+
+**Fields and Data Types**:
+- `id`: Integer (Primary Key, Auto-incremented)
+- `customerId`: Integer (Foreign Key, references `customer_records`)
+- `loanAmount`: Float
+- `loanStatus`: String (Default: 'active')
+
+### 3. Associations
+
+The models have the following associations:
+
+- A **Loan** belongs to a **Customer**.
+- A **Customer** has many **Loans**.
+
+These associations are defined in a separate file (`models/associations.js`).
+
+#### Associations Overview:
+- `Loan.belongsTo(Customer)` (foreignKey: 'customerId')
+- `Customer.hasMany(Loan)` (foreignKey: 'customerId')
+
+
+### 4. Additional Notes
+- The `timestamps: true` option in both models ensures that Sequelize automatically adds `createdAt` and `updatedAt` fields to the tables.
+- The `onDelete: 'CASCADE'` option ensures that if a customer is deleted, all associated loans are automatically removed.
