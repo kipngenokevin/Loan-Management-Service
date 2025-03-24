@@ -1,3 +1,3 @@
 const customerRoutes = require('./customerroutes')
 
-module.exports = { customerRouters }
+module.exports = { customerRoutes }
