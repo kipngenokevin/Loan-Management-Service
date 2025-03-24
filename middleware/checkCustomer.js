@@ -8,28 +8,21 @@ const checkCustomer = (customerNumber) => {
             return
         }
 
-        // Log available operations to ensure you are calling the correct one
-        console.log(client.describe());
-
         // Define SOAP parameters
         const args = {
             customerNumber: customerNumber
         }
 
-        // Check if CustomerRequest or other operation exists and call it
-        if (client.CustomerRequest) {
-            client.CustomerRequest(args, (err, result) => {
-                if (err) {
-                    console.error("Error getting customer data", err)
-                    return
-                }
+        // Call the correct method
+        client.CustomerPortService.CustomerPortSoap11.Customer(args, (err, result) => {
+            if (err) {
+                console.error("Error getting customer data", err)
+                return
+            }
 
-                console.log("Response: ", result)
-                return result
-            })
-        } else {
-            console.error("CustomerRequest method not found in the SOAP service.")
-        }
+            console.log("Response: ", result)
+            return result
+        })
     })
 }
 
