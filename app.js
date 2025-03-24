@@ -2,6 +2,7 @@ const express = require('express')
 const cors = require('cors')
 const path = require('path')
 const { sequelize } = require('./models')
+const { customerRoutes } = require('./routes')
 
 // Initialize app as an instance of Express
 const app = express()
@@ -16,6 +17,7 @@ sequelize.authenticate().then(() => {
     // Sync the database
     sequelize.sync({ force: false}).then(() => {
         console.log("Database & tables synchronized successfully")
+        registerRoutes()
     }).catch((err) => {
         console.error('Error syncing tables', err)
     })
@@ -23,11 +25,14 @@ sequelize.authenticate().then(() => {
     console.error('Unable to connect to the database', err)
 })
 
-app.get("/", (req, res) => {
-    res.status(200).json({"success": "Congratulations on setting your app!"})
-})
+// Function to register routes and start the service
 
-const PORT = process.env.PORT || 3009
-app.listen(PORT, () => {
-    console.log(`App running on port: ${PORT}`)
-})
+function registerRoutes() {
+    app.use('api/v1/customers', customerRoutes)
+
+    const PORT = process.env.PORT || 3009
+    app.listen(PORT, () => {
+        console.log(`App running on port: ${PORT}`)
+    })
+}
+
