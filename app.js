@@ -28,7 +28,7 @@ sequelize.authenticate().then(() => {
 // Function to register routes and start the service
 
 function registerRoutes() {
-    app.use('api/v1/customers', customerRoutes)
+    app.use('/api/v1/customers', customerRoutes)
 
     const PORT = process.env.PORT || 3009
     app.listen(PORT, () => {
