@@ -11,8 +11,17 @@ exports.createLoan = async (req, res) => {
             return res.status(400).json({ error: "Confirm if you have passed loanAmount or customerAmount" })
         }
 
-        // Check if customer has an existing loan
+        // Get customer
+        const customer = Customer.findOne({ where: {customerNumber}})
+        const customerId = customer.id
+        console.log(customer.id)
         // If true, check the loan status
+        const checkLoan = Loan.findOne({ where: {customerId}})
+
+        // If customer has a loan return a failed creating record
+        if (loanState) {
+            return res.status(400).json({ error: "Customer already has an existing loan"})
+        }
 
         // Initiate a query score - get token
         const status = await loanStatus(customerNumber)
@@ -40,7 +49,15 @@ exports.createLoan = async (req, res) => {
 // Return a loan record by Id
 exports.getLoan = async (req, res) => {
     try {
-        
+        const { id } = req.params
+
+        const loan = await Loan.findByPk(id, {include : ['customer']})
+
+        if (!loan) {
+            return res.status(404).json({ error: "Loan record does not exist"})
+        }
+
+        res.status(200).json({ loan })
     } catch (error) {
         console.error("Error fetching loan info", error)
         res.status(500).json({ error: "Error fetching loan" })

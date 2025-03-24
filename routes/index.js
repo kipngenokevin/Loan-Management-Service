@@ -1,3 +1,4 @@
 const customerRoutes = require('./customerroutes')
+const loanRoutes = require('./loanroutes')
 
-module.exports = { customerRoutes }
+module.exports = { customerRoutes, loanRoutes }

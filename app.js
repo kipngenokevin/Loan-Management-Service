@@ -2,7 +2,7 @@ const express = require('express')
 const cors = require('cors')
 const path = require('path')
 const { sequelize } = require('./models')
-const { customerRoutes } = require('./routes')
+const { customerRoutes, loanRoutes } = require('./routes')
 
 // Initialize app as an instance of Express
 const app = express()
@@ -29,6 +29,7 @@ sequelize.authenticate().then(() => {
 
 function registerRoutes() {
     app.use('/api/v1/customers', customerRoutes)
+    app.use('/api/v1/loans', loanRoutes)
 
     const PORT = process.env.PORT || 3009
     app.listen(PORT, () => {
