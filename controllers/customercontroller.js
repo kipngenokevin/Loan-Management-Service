@@ -10,6 +10,10 @@ exports.createCustomer = async (req, res) => {
             return res.status(400).json({ error: 'customerNumber missing in your request'})
         }
 
+        // Check if the customer exists in the bank records
+        const kyc = await getCustomerDetails(customerNumber)
+        console.log("Here is kyc: ", kyc)
+
         // Check if customer exists
         const exists = await Customer.findOne( {where: {customerNumber: customerNumber} })
 
