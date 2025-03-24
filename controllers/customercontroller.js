@@ -1,4 +1,5 @@
 const { Customer, Loan } = require('../models')
+const checkCustomer = require('../middleware/checkCustomer')
 
 // Create a new Customer
 exports.createCustomer = async (req, res) => {
@@ -11,7 +12,7 @@ exports.createCustomer = async (req, res) => {
         }
 
         // Check if the customer exists in the bank records
-        const kyc = await getCustomerDetails(customerNumber)
+        const kyc = await checkCustomer(customerNumber)
         console.log("Here is kyc: ", kyc)
 
         // Check if customer exists
@@ -28,7 +29,7 @@ exports.createCustomer = async (req, res) => {
         res.status(201).json({ message: 'Customer subscribed successfully', customer: { id: customer.id, customerNumber: customer.customerNumber } })
         
     } catch (error) {
-        console.error("Error creating a adding customer subscription")
+        console.error("Error creating adding customer subscription")
         res.status(500).json({error: "Error adding a new customer subscription"})
     }
 }
