@@ -14,6 +14,7 @@ exports.createCustomer = async (req, res) => {
         // Check if the customer exists in the bank records
         const kyc = await checkCustomer(customerNumber)
         console.log("Here is kyc: ", kyc)
+        // There is an error here at the moment, the  ECONNREFUSED 127.0.0.1:8093
 
         // Check if customer exists
         const exists = await Customer.findOne( {where: {customerNumber: customerNumber} })
