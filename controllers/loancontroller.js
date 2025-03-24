@@ -1,3 +1,4 @@
+const loanStatus = require('../middleware/loanStatus')
 const { Loan, Customer } = require('../models')
 
 // Create a new Loan record
@@ -10,13 +11,15 @@ exports.createLoan = async (req, res) => {
             return res.status(400).json({ error: "Confirm if you have passed loanAmount or customerAmount" })
         }
 
-        // Initiate a query score - get token
-        //  Query score
-        // Set status based on the query score
+        // Check if customer has an existing loan
+        // If true, check the loan status
 
+        // Initiate a query score - get token
+        const status = await loanStatus(customerNumber)
+    
         // create a new loan record
         const loan = await Loan.create({
-            customerNumber, loanAmount
+            customerNumber, loanAmount, status
         })
 
         res.status(201).json({
