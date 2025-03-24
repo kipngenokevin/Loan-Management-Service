@@ -28,10 +28,10 @@ Loan.init({
     loanStatus: {
         type: DataTypes.STRING,
         allowNull: false,
-        defaultValue: 'active',
+        defaultValue: 'processing',
         validate: {
             isIn: {
-                args: [['active', 'closed', 'defaulted']],
+                args: [['processing', 'active', 'closed', 'defaulted']],
                 msg: 'loanStatus must be either active, closed, or defaulted'
             }
         }
